@@ -1,0 +1,29 @@
+{
+    "name": "khaleds/state",
+    "description": "Lookups and states daynamic handeling",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Khaleds\\State\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "khaleds",
+            "email": "khaled.abodaif@yahoo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "spatie/laravel-model-states": "dev-main"
+    },
+    "extra": {
+
+        "laravel": {
+            "providers": [
+                "Khaleds\\State\\StateServiceProvider"
+            ]
+        }
+    }
+}

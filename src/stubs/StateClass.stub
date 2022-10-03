@@ -1,0 +1,20 @@
+<?php
+
+
+namespace {{ nameSpace }};
+
+
+class {{ name }}State extends {{ abstractName }}Abstract
+{
+    public static $name = '{{ name }}';
+
+    /**
+     * @inheritDoc
+     */
+    public function handel(): mixed
+    {
+        return '{{ name }}';
+    }
+
+
+}

@@ -1,0 +1,35 @@
+<?php
+
+
+namespace {{ nameSpace }};
+use Spatie\ModelStates\State;
+use Spatie\ModelStates\StateConfig;
+{{ stateClasses }}
+
+abstract class {{ className }}Abstract extends State
+{
+
+    public const Classes=[{{ stateClassKeyValue }}];
+
+    abstract public function handel():mixed;
+
+
+
+    public static function config(): StateConfig
+    {
+        $enums=array_values(self::Classes) ;
+
+        return parent::config()
+            ->default({{ defaultState }})
+            ->allowTransitions(collect($enums)->crossJoin($enums)->toArray())
+            ->registerState([{{ stateClassValue }}]);
+    }
+
+    public static function find(string $key){
+
+        if (array_key_exists($key,self::Classes))
+            return self::Classes[$key];
+
+        return false;
+    }
+}
