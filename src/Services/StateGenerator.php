@@ -38,14 +38,14 @@ class StateGenerator
     {
         $this->abstractName=ucfirst(Str::camel($this->stateAbstractName.'Abstract'));
         $states=explode(',',$this->stateClasses);
-
         foreach ($states as $state){
+            $this->stateNameSpaces[ucfirst(Str::camel($state))]="";
             $this->stateNames .="'".$state."'"."=>".ucfirst(Str::camel($state))."State::class,";
             $this->stateClassValue .=ucfirst(Str::camel($state))."State::class,";
             if (empty($this->moduleName))
                 $this->stateNameSpaces[ucfirst(Str::camel($state))]='use App\Status\\'.$this->stateAbstractName.'\\'.ucfirst(Str::camel($state)).'state'.';';
-            else
-                $this->stateNameSpaces[ucfirst(Str::camel($state))]='use Module\Status\\'.$this->stateAbstractName.'\\'.ucfirst(Str::camel($state)).'state'.';';
+//            else
+//                $this->stateNameSpaces[ucfirst(Str::camel($state))]='use Module\\'.$this->moduleName.'\\'.$this->stateAbstractName.'\Status'.'\\'.ucfirst(Str::camel($state)).'state'.';';
 
         }
     }
@@ -65,7 +65,6 @@ class StateGenerator
                 File::makeDirectory($this->path . '/Status');
                 File::makeDirectory($fullPath);
             } catch (\Exception $e) {
-                dd('second',$e->getMessage());
 
             }
         }
@@ -74,7 +73,7 @@ class StateGenerator
             $replacements['nameSpace']="App\Status\\".$this->stateAbstractName;
 
         else
-        $replacements['nameSpace']="Modules\Status\\".$this->moduleName;
+        $replacements['nameSpace']="Modules\\".$this->moduleName."\Status\\".$this->stateAbstractName;
 
         $replacements["className"]=$this->stateAbstractName;
         $replacements["stateClasses"]=implode($this->stateNameSpaces);
@@ -98,8 +97,8 @@ class StateGenerator
 
         }
         else{
-            $replacements['nameSpace']="Modules\\".$this->moduleName;
-            $replacements['abstractNameSpace']="Modules\Status\\".$this->stateAbstractName;
+            $replacements['nameSpace']="Modules\\".$this->moduleName."\Status\\".$this->stateAbstractName;
+            $replacements['abstractNameSpace']="Modules\\".$this->moduleName."\Status\\".$this->stateAbstractName;
         }
 
 
